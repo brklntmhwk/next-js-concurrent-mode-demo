@@ -1,34 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Streaming demo
 
-## Getting Started
+- Next.js 13(app directory)
+- React Suspense, lazy, useTransition, startTransition
+- Tailwind css
 
-First, run the development server:
+## memo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- Overall
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  - If rendering suspends, the fact that it was happening in and of itself is ignored as if nothing happened
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Suspense
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+  - when suspension occurs, it passes the content of the fallback prop to the browser to temporarily display it until it finishes
+  - Without Suspense, suspension affects all the App and causes a whiteout on the browser forcing it to stop rendering
+  - It plays a roll as a boundary for suspension
+  - Upon completion of Promise, all components inside the Suspense will be re-rendered with optimization
+    - Promise resolved, in this case, can serve as a signal that the component in which the Promise was thrown is ready to be rendered
 
-## Learn More
+- startTransition
 
-To learn more about Next.js, take a look at the following resources:
+  - It takes a callback function that does change a state object(e.g. setState((sth) => sth + 1))
+  - A callback wrapped inside it becomes a lower priority in terms of state renewal and therefore the execution of it might be postponed
+  - It's useful in a situation like suspension takes just a moment and the loading component flickers; it can skip the fallback process so the display transition occurs smoothly
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- ## useTransition

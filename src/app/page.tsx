@@ -5,6 +5,8 @@ import ThreeSecond from "@/components/3s-component";
 import Instant from "@/components/instant-component";
 import NoSleep from "@/components/no-sleep-component";
 import Loading from "@/components/loading";
+import DataLoader from "@/components/data-loader";
+import SleepButton from "@/components/sleep-button";
 
 export default function Home() {
   const LazyComponent = lazy(() => import("@/components/lazy-component"));
@@ -51,6 +53,11 @@ export default function Home() {
           <LazyComponent />
         </Suspense>
       </div>
+      <div>
+        <Suspense fallback={<Loading />}>
+          <SleepButton />
+        </Suspense>
+      </div>
       {/* 外部APIから await fetch */}
       <div>
         <h2 className="text-2xl font-semibold leading-loose pb-4">
@@ -64,6 +71,17 @@ export default function Home() {
         </h2>
         <Suspense fallback={<Loading />}>
           <NoSleep />
+        </Suspense>
+      </div>
+      <div>
+        <Suspense fallback={<Loading />}>
+          <DataLoader key="loader1" />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <DataLoader key="loader2" />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <DataLoader key="loader3" />
         </Suspense>
       </div>
     </main>
