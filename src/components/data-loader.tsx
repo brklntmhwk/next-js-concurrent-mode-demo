@@ -1,14 +1,18 @@
-import useData from "@/hooks/useData";
+import useData from "@/hooks/use-data";
 import fetchData from "@/utils/fetch-data";
 
 type DataLoaderProps = {
-  key: string;
+  cacheKey: string;
 };
 
-const DataLoader = ({ key }: DataLoaderProps) => {
-  const data = useData(key, fetchData);
+const DataLoader = ({ cacheKey }: DataLoaderProps) => {
+  const data = useData(cacheKey, fetchData);
 
-  return <div>{data}</div>;
+  return (
+    <p>
+      お客様のキャッシュキー{cacheKey} のデータは {data} になります💁
+    </p>
+  );
 };
 
 export default DataLoader;

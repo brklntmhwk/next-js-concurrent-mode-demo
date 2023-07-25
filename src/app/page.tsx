@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import Link from "next/link";
 import OneSecond from "@/components/1s-component";
 import TwoSecond from "@/components/2s-component";
 import ThreeSecond from "@/components/3s-component";
@@ -14,8 +15,8 @@ export default function Home() {
   return (
     <main className="flex gap-8 min-h-screen flex-col items-center justify-around p-28">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-lg lg:flex">
-        <h1 className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4">
-          Next.js Streaming demo
+        <h1 className="text-3xl fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4">
+          Next.js Concurrent mode demo
         </h1>
         <div className="fixed bottom-0 left-0 flex w-full items-end justify-center bg-gradient-to-t from-white via-white lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
@@ -27,6 +28,10 @@ export default function Home() {
             By brklntmhwk
           </a>
         </div>
+      </div>
+      <div className="flex gap-5">
+        <Link href="/">🏠 Home</Link>
+        <Link href="/transition">🌀 Transition</Link>
       </div>
       <div className="relative flex gap-10 before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:lg:h-[360px] z-[-1]">
         {/* setTimeout で秒数をずらして表示 */}
@@ -75,13 +80,13 @@ export default function Home() {
       </div>
       <div>
         <Suspense fallback={<Loading />}>
-          <DataLoader key="loader1" />
+          <DataLoader cacheKey="loader1" />
         </Suspense>
         <Suspense fallback={<Loading />}>
-          <DataLoader key="loader2" />
+          <DataLoader cacheKey="loader2" />
         </Suspense>
         <Suspense fallback={<Loading />}>
-          <DataLoader key="loader3" />
+          <DataLoader cacheKey="loader3" />
         </Suspense>
       </div>
     </main>
